@@ -1,0 +1,31 @@
+module generic_fifo (clock, reset, write_enable, data_in, read_enable, data_out, data_valid, empty, full);
+	parameter data_width = 16;
+	parameter data_depth = 256;
+	input clock;
+	input reset;
+	input write_enable;
+	input [data_width-1:0] data_in;
+	output [data_width-1:0] data_out;
+	output data_valid;
+	output empty;
+	output full;
+	
+	reg [data_width-1:0] data_array [data_depth-1:0];
+	
+	reg input_pointer;
+	reg output_pointer;
+
+	integer i;
+	
+	always @(posedge reset or posedge clock)
+	begin
+		if (reset == 1)
+		begin
+			for (i = 0; i < data_depth-1; i = i + 1)
+			begin
+				data_array	<= data_width'b0;
+			end
+		end
+	end
+
+endmodule
